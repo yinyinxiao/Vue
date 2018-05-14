@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-for</title>
+</head>
+<body>
+<div id="app">
+    <!-- v-for 要循环谁就在谁身上家v-on-->
+    <ul>
+        <li v-for="(item,index) in fruits">{{index+1}}、{{item.name}}
+            <ul>
+                <li v-for="(i,childIndex) in item.color">{{index+1}}.{{childIndex}}、{{i}}</li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm=new Vue({
+        el:'#app',
+        data:{
+            fruits:[
+                {name:'xiangjiao',color:['grren','yellow']},
+                {name:'pingguo',color:["red","green","yellow"]},
+                {name:'juzi',color:["red","green"]}]
+        }
+    })
+</script>
+</body>
+</html>

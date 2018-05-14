@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>VUE</title>
+</head>
+<body>
+    <div id="app">
+        {{msg}}
+       <input type="text" v-model="msg">
+        <!-- Object.defineProperty es5-->
+        <div v-once="">
+            {{msg}}
+            {{p}}
+        </div>
+        <div v-html="p"></div>
+        {{a}}
+        {{arr}}
+    </div>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+   <script>
+       /**
+        * vm==viewmodel，
+        * el:element vue的挂载点，
+        * data:data中的数据会被vm所代理，可以通过vm.待用，
+        * {{}}可以赋值，可以取值，可以用三元表达式，
+        * vue的指令只是DOM的行间属性，vue给这类属性赋予一定的意义 来实现特殊的功能 所有指令都以v-开头，表单value属性默认情况
+        * 会被vue忽略掉，vue还会忽略 selected checked，
+        *
+        * v-model:会将值赋予输入框，同时输入框的值改变了也会影响数据,实现数据的双向绑定
+        *
+        * v-text==={{}}防止页面加载时出现{{}}
+        *
+        * v-once只绑定一次，数据变化时不会导致页面刷新
+        * v-html html字符串当作html渲染,一定时可以信任的
+        * */
+           //vue会循环data中的数据（数据劫持），依此的增加get和set方法
+           //使用变量时先进行初始化，否则新加的属性不会造成页面重新渲染
+       let vm = new Vue({
+           el:'#app',
+           data:{
+              msg:"hello",
+               p:'<p>你好啊</p>',
+               a:{
+                  school:''
+               },
+              arr:[1,2,3,4,5]
+           }
+       });
+       //vm.$set(vm.a,'school',1);此方法可以给对象添加响应式的数据变化
+       //替换原对象
+       vm.a={school:"haha",liu:"yin"};
+
+       //data中的数组：改变数组中的某一项，改变数组的长度，不会改变页面重新渲染
+       //变异方法：pop push sort reserve shift unshift splice 可以使页面重新渲染
+       //直接改变数组对象也能重新渲染
+       //vm.arr.reverse();
+       vm.arr=vm.arr.map(item=>item*3);
+   </script>
+</body>
+</html>
