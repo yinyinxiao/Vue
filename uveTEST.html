@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <div id="app">
+        <!--
+        复选框：
+        单个复选框的时候，会把值转化为布尔值，值为true代表选中
+        多个复选框的时候，要添加value属性，并且数据类型是数组,数组里面添加的是value值
+        -->
+        <input type="checkbox" v-model="a">
+        {{a}}<br>
+        课程:<input type="checkbox" value="语文" v-model="b">语文
+        <input type="checkbox" value="数学" v-model="b">数学
+        <input type="checkbox" value="英语" v-model="b">英语
+        {{b}}<br>
+        <!--
+            下拉菜单
+            传统获取select选中的值
+            let optionS=document.getElementById('');
+            optionS.onchange=function(){
+             console.log(this.value);
+            }
+            如果未加value数据的值是option中的值，multiple多选框时，数据类型要是数组类型
+
+        -->
+        <select v-model="c">
+            <option value="" disabled>请选择</option>
+            <option value="a">刘银</option>
+            <option value="b">张宁</option>
+            <option value="c">莫雪骄</option>
+        </select>
+        {{c}}
+        <!--
+         radio 同理
+        -->
+        <input type="radio" value="man" v-model="sex">男
+        <input type="radio" value="female" v-model="sex">女
+        {{sex }}
+    </div>
+   <script src="./node_modules/vue/dist/vue.js"></script>
+    <script>
+        let vm=new Vue({
+            el:"#app",
+            data:{
+                a:'',
+                b:[],
+                c:'',
+                sex:''
+            }
+        })
+    </script>
+</body>
+</html>
