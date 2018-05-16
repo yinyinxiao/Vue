@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="node_modules\bootstrap\dist\css\bootstrap.css" rel="stylesheet">
+</head>
+<body>
+<!--
+    事件：
+    @事件.top 阻止事件冒泡
+    @事件.capture事件捕获时触发
+    @事件.prevent阻止默认行为
+    @事件.once事件只执行一次
+    @事件.self只有直接作用在在自己身上的事件才触发，即捕获或冒泡的事件都不接收
+
+-->
+    <div id="app">
+        <div @click="parent">parent
+             <div @click.self="son">son
+                 <div @click="grandson">grandson</div>
+             </div>
+        </div>
+        <a href="http://www.github.com/yinyinxiao" @click.prevent="stop">阻止默认行为</a>
+    </div>
+    <script src="node_modules/vue/dist/vue.js" ></script>
+    <script>
+        let vm=new Vue({
+            el:'#app',
+            methods:{
+                parent(){
+                    console.log('parent');
+                },
+                son(){
+                    console.log("son");
+                },
+                grandson(){
+                    console.log("grandson");
+                },
+                stop(){
+                    console.log("阻止默认行为");
+                }
+            }
+        })
+    </script>
+</body>
+</html>
