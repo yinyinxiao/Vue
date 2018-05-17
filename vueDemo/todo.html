@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo</title>
+    <link rel="stylesheet" href="node_modules\bootstrap\dist\css\bootstrap.css">
+    <style>
+        .list-group button {
+            float: right;
+        }
+        .lineH{
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+<body>
+
+<div id="app">
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">
+            TodoDemo
+        </a>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="" >
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <label>增加事情:</label><input type="text" class="form-control" @keyup.enter="addThing(something)" v-model="something">
+                        <h1 class="panel-title">
+                            亲^_^你还有{{total}}件事没有完成
+                        </h1>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="list-group">
+                            <li class="list-group-item " v-for="item in filterTodo" @dblclick="getTodo(item)" >
+                                <span :class="getLine(item.checked)" v-show="item!=todo">
+                                    <input type="checkbox" v-model="item.checked">
+                                    {{item.thing}}
+                                </span>
+                                <button class="btn btn-danger" @click="remove(item)" >&times;</button>
+                                <input  type="text" v-model="item.thing" v-show="item==todo" @blur="blur" @keyup.enter="blur">
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="panel-body">
+                        <div class="panel-footer">
+                            <ul class="nav nav-pills nav-fill">
+                                <li class="nav-item ">
+                                    <a class="nav-link" href="#/total" :class="{active:hash==='total'}">全部任务</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#/finished" :class="{active:hash==='finished'}">已经完成</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#/unfinished" :class="{active:hash==='unfinished'}">还未完成</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="node_modules/vue/dist/vue.js" ></script>
+<script src="todo.js"></script>
+</body>
+</html>
