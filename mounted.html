@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <p ref="myp">{{msg}}</p>
+    <p ref="myp">{{msg}}</p>
+    <div ref="out">
+        <p ref="myref" v-for="a in arr">{{a}}</p>
+    </div>
+
+
+</div>
+<script src="node_modules/vue/dist/vue.js" ></script>
+<!--
+    生命周期：beforeCreate created
+              beforeMount mounted
+              beforeUpdata updated
+              beforeDestory destroyed
+    new Vue()根实例，初始化时会调用很多方法，钩子函数
+-->
+<script>
+    //this.$data vm上的数据,
+    // this.$watch监控
+    // this.$el 当前el元素,
+    // this.$set后加的属性，实现响应式变化,
+    // this.$options vm上的所有属性，
+    // this.$nextTick()//异步方法 保证dom渲染完成，可以获取vm
+    //this.$refs 所有ref的集合 如果dom元素不是通过v-for循环出来的只能获取一个
+    var vm=new Vue({
+        el:"#app",//3 vm.mount("#app")要保证有编译的元素el才能继续执行
+        data:{
+            a:'gg',
+            msg:'hello',
+            arr:[1,2,3,4]
+        },
+        //真实dom渲染完了，可以操作dom了
+        mounted(){
+            console.log(document.getElementsByTagName('p')[0].innerHTML);
+            console.log(this.$refs.myp);
+            console.log(this.$refs.myref)
+            this.arr=[1,2,3,4,5]//dom渲染是异步的如果想改变数据马上取得结果，一定要放在this.$nextTick()中
+            console.log(this.$refs.out.children.length);
+            this.$nextTick(()=>{
+                console.log(this.$refs.out.children.length);
+            })
+
+        }
+
+    })
+</script>
+</body>
+</html>{
