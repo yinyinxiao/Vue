@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app"></div>
+<script src="node_modules/vue/dist/vue.js" ></script>
+<!--
+    生命周期：beforeCreate created
+              beforeMount mounted
+              beforeUpdata updated
+              beforeDestory destroyed
+    new Vue()根实例，初始化时会调用很多方法，钩子函数
+-->
+<script>
+
+    var vm=new Vue({
+            el:"#app",//3 vm.mount("#app")要保证有编译的元素el才能继续执行
+            data:{
+                a:'gg'
+            },
+        beforeCreate(){//1
+                //debugger;//断点
+        },
+        created(){//2获取ajax初始化操作
+                //debugger;
+        },
+        template:'<div>{{a}}</div>',//4.如果有template属性，会用模板替换外部html,
+        // 只要写了此属性，app中的内容就没有意义了，只能有一个根元素，不能是文本节点
+
+        beforeMount(){},//5没有什么实际意义
+        mounted(){},//真识dom渲染完了，可以操作dom了
+        beforeUpdate(){},//一般用watch来替换掉
+        updated(){},
+        beforeDestroy(){},//可以清楚定时器 或者解绑事件绑定
+        destroyed(){},
+
+        })
+</script>
+</body>
+</html>{
