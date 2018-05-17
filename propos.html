@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--
+    组件
+        全局组件：可以声明一次在任何地方都可以用，一般写插件的时候用的多一些，写在类上Vue.component()
+        局部组件：必须告诉这个组件属于谁人，写在实例上new Vue()
+                    1、创建组件
+                    2、注册组件
+                    3、使用组件
+
+        组件是相互独立的，不能直接跨作用域，实例也是一个组件，组件中拥有生命周期函数
+-->
+<div id="app">
+    <my :m="money"></my>
+
+
+</div>
+<script src="node_modules/vue/dist/vue.js" ></script>
+<script>
+    let my={
+        template:'<div>我漂亮{{msg}}{{m}}</div>',
+        data(){
+            return {msg:'liuyin'}
+        },
+        props:{
+            m:{
+                type:[String,Number,Object,Array,Boolean],//校验属性类型，校验并不能阻断代码的
+                //指向，如果传入不存在的类型，则会出现浸膏
+                default:0,//可以给m赋予默认值，当m没有传的时候就会调用default
+                //required:true//此属性规定必须传递，不能和default同时存在
+            }
+        }
+
+    };
+    var vm=new Vue({
+        el:'#app',
+        components:{
+            my,//es6中名字一样可以只写一个my:my,
+            //他们的父级是vm,vm中的data，其不能用
+        },
+        data:{
+            money:400
+        }
+
+    })
+</script>
+</body>
+</html>
