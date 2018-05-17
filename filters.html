@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app"></div>
+<link href="node_modules\bootstrap\dist\css\bootstrap.css" rel="stylesheet">
+    <script>
+        //全局过滤器，要放到顶部
+        //Vue.filter('filterName',(data)=>{
+        //})
+        //computed计算属性，不是方法，不支持异步
+        /**
+         * 有两部分组成，get和set,get不能省略
+         *
+         * */
+            //watch,watch的属性名要和观察者的名字一样
+        var vm=new Vue({
+            el:"#app",
+            data:{
+                a:''
+            },
+            watch:{
+                a(){
+                    //a的值变化了就会调用此方法,支持异步，其他情况善于用conmputed
+                }
+            }
+        })
+    </script>
+</body>
+</html>{
