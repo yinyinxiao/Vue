@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--
+    <component>组件:is属性可以设置哪个组件显示
+    <keep-alive>组件，有缓存的功能，
+    被缓存后就不会再走created mounted，destoryed等钩子函数
+
+-->
+<div id="app">
+    <input type="radio" v-model="radio" value="childa">a
+    <input type="radio" v-model="radio" value="childb">b
+
+    <keep-alive><component :is="radio"></component></keep-alive>
+</div>
+
+<script src="node_modules/vue/dist/vue.js" ></script>
+<script>
+
+    let childa={
+    template:'<div>a显示</div>',
+        destroyed(){
+            console.log('childa被销毁');
+        },
+        mounted(){
+        console.log('childa被挂载');
+        }
+    }
+    let childb={
+        template:'<div>显示</div>',
+        destroyed(){
+            console.log('childb被销毁');
+        },
+        mounted(){
+            console.log('childb被挂载');
+        }
+    }
+    var vm =new Vue({
+        el:'#app',
+        components:{
+           childa,childb
+        },
+        data:{
+            radio:''
+        }
+    })
+</script>
+
+</body>
+</html>
