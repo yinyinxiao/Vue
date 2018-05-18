@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style type="text/css">
+    .div{
+        position: fixed;
+        width: 200px;
+        height: 200px;
+        background: aquamarine;
+        left:30%;
+        top: 25%;
+    }
+    .btn1,.btn2{
+        background: gainsboro;
+        border: none;
+        outline: none;
+    }
+</style>
+<body>
+<div id="app">
+    <button @click="changeShow()" >弹框</button>
+    <dia :ether="show" @close="(val)=>this.show=val"></dia>
+
+    <template id="dialog">
+    <div class="div" v-show="ether" >
+        <button class="btn2" @click="getClose()" >X</button>
+    </div>
+    </template>
+</div>
+
+<script src="node_modules/vue/dist/vue.js" ></script>
+<script>
+
+    let dia={
+        template:'#dialog',
+        data(){
+            return {
+
+            }
+        },
+        props:['ether'],
+        methods:{
+            getClose(){
+                this.$emit('close',false)
+            },
+
+        }
+
+    }
+
+    var vm =new Vue({
+        el:'#app',
+        data:{
+            show:false,
+        },
+        components:{
+            dia
+        },
+        methods:{
+            changeShow(){
+                this.show=true;
+            }
+        }
+    })
+</script>
+
+</body>
+</html>
