@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>panel</title>
+    <link rel="stylesheet" href="node_modules\bootstrap\dist\css\bootstrap.css">
+    <style type="text/css">
+        .router-link-active{
+            background: aquamarine;
+        }
+        .active{
+            background: yellowgreen;
+        }
+    </style>
+</head>
+<body>
+<div class="panel panel-default">
+    <!--<div class="panel-body">-->
+    <!--hash模式 开发时使用，不会导致404 hash不支持seo-->
+    <!--h5的history.pushState()，上线采用h5的跳转-->
+    <!--</div>-->
+</div>
+<div id="app">
+    <router-link to="/home">首页</router-link>
+    <router-link to="/detail">详情页</router-link>
+    <router-view></router-view>
+</div>
+<template id="detail">
+    <div>
+        <router-link to="/detail/profile">个人中心</router-link>
+        <router-link to="/detail/about">关于我</router-link>
+        <router-view></router-view>
+    </div>
+</template>
+
+
+<script src="node_modules\vue\dist\vue.js"></script>
+<script src="node_modules\vue-router\dist\vue-router.js"></script>
+<script>
+    let home={template:'<div>home</div>'};
+    let detail={template:'#detail'};
+    let profile={template:'<div>profile</div>'};
+    let about={template:'<div>about</div>'};
+    let routes=[
+        {
+            path:'/home',
+            component:home
+        },
+        {
+            path:'/detail', component:detail,
+            children:[//children中的路径不带/，带/表示一级路由
+                {path:'profile',component:profile},
+                {path:'about',component:about},
+
+                ]
+        }
+    ];
+    let router=new VueRouter({
+        routes
+    })
+    var vm =new Vue({
+        el:'#app',
+        router//router:router,每个组件都会拥有一个名字极爱哦$router(存储的还有方法)的属性 还有一个$route（存储的都是属性
+    })
+</script>
+</body>
+</html>

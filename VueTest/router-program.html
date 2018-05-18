@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>panel</title>
+    <link rel="stylesheet" href="node_modules\bootstrap\dist\css\bootstrap.css">
+    <style type="text/css">
+        .router-link-active{
+            background: aquamarine;
+        }
+        .active{
+            background: yellowgreen;
+        }
+    </style>
+</head>
+<body>
+<div class="panel panel-default">
+    <!--<div class="panel-body">-->
+    <!--hash模式 开发时使用，不会导致404 hash不支持seo-->
+    <!--h5的history.pushState()，上线采用h5的跳转-->
+    <!--</div>-->
+</div>
+<div id="app">
+    <router-link :to="{path:'/home'}">shouye</router-link>
+    <router-link :to="{path:'/list'}">列表</router-link>
+    <router-view></router-view>
+</div>
+
+
+
+<script src="node_modules\vue\dist\vue.js"></script>
+<script src="node_modules\vue-router\dist\vue-router.js"></script>
+<script>
+    let home={
+        template:"<div>首页<button @click='toList'>去列表</button></div>",
+        methods:{
+            toList(){
+                this.$router.push('/list')//强制跳转
+                //this.router.replace('/list')//路由的替换 将当前的历史替换掉
+            }
+        }
+    };
+    let list={
+        template:"<div>列表<button @click='toHome'>去首页</button></div>",
+        methods:{
+            toHome(){
+                //this.$router.push('/home')
+                this.$router.go(-1)//返回上一级
+                //go顶替了back
+            }
+        }
+    }
+    let routes=[//路由的映射表，配置路径和组件的关系
+        //{path:'/',component:home},
+        {path:'',component:home},//默认展示的路由
+        {path:'/home',component:home},
+        {path:'/list',component:list},
+        //{path:'*',component:home}//这个地方路径不会变，知识组件变了，我们想要路径变，页面也变
+        {path:'*',redirect:'/home'}//404的时候
+    ]
+    let router=new VueRouter({//引入vue-router 自带VueRouter类
+        routes,//routes:routes
+        //mode:'history'//模式默认是hash
+        linkActiveClass:'active'//更改默认样式的名字 默认叫router-link-active
+    })
+    var vm =new Vue({
+        el:'#app',
+        router//router:router,每个组件都会拥有一个名字极爱哦$router(存储的还有方法)的属性 还有一个$route（存储的都是属性
+    })
+</script>
+</body>
+</html>

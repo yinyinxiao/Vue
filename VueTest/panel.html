@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>panel</title>
+    <link rel="stylesheet" href="node_modules\bootstrap\dist\css\bootstrap.css">
+    <link rel="stylesheet" href="node_modules\bootstrap\dist\css\bootstrap-theme.css">
+</head>
+<body>
+<div id="app">
+    <panel v-for="key in message" :val1="key.title" :val2="key.me" :color="key.color"></panel>
+
+</div>
+<template id="panel">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default" :class="colors" >
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{{val1}}</h3>
+                    </div>
+                    <div class="panel-body">
+                        {{val2}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script src="node_modules\vue\dist\vue.js"></script>
+<script src="node_modules\vue-router\dist\vue-router.js"></script>
+<script>
+    let panel={
+        template:'#panel',
+        props:{
+            val1:'',
+            val2:'',
+            color:''
+        },
+        data(){
+            return {}
+        },
+        watch:{
+
+        },
+        computed:{
+            colors(){
+                console.log(this.color)
+                return 'panel-'+this.color;
+            }
+        }
+    }
+
+    var vm =new Vue({
+        el:'#app',
+        components:{
+            panel
+        },
+        data:{
+            message:
+                [
+                    {
+                        color:'warning',
+                        title:'爱好',
+                        me:'唱歌'
+                    },
+                    {
+                        color:'danger',
+                        title:'讨厌',
+                        me:'喝酒'
+                    },
+                    {
+                        color:'active',
+                        title:'擅长',
+                        me:'玩儿'
+                    }
+                ]
+        }
+
+
+    })
+</script>
+</body>
+</html>
