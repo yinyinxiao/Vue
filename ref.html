@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--
+    ref获取真实的DOM,通过this.$refs获取
+-->
+<div id="app">
+    <child ref="load"></child><button @click="close2">关闭</button>
+</div>
+
+<script src="node_modules/vue/dist/vue.js" ></script>
+<script>
+
+    let child={
+        template:'<div v-show="show">父组件调用子组件关闭</div>',
+        data(){
+            return {
+                show:true,
+            }
+        },
+        methods:{
+            close(){
+                this.show=false;
+            }
+        }
+
+    }
+    var vm =new Vue({
+        el:'#app',
+        data:{
+            money:400
+        },
+        components:{
+            child
+        },
+        methods:{
+            close2(){this.$refs.load.close();
+            }
+        },
+        mounted(){
+            this.$refs.load.$el.style.background='green';
+        }
+    })
+</script>
+
+</body>
+</html>
