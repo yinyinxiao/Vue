@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--
+    slot定制插槽,
+    模板定制是，只能有一个根元素，<template>标签下也只能有一个根元素，
+    在根元素内放入插槽slot，就可以防止在父级引用模板时在中间插入的元素被替换
+     可以为slot添加name属性，在模板调用时通过设置slot属性来控制出入内容的位置
+-->
+<div id="app">
+    <child><div slot="b">liu</div><div slot="a">yin</div></child>
+</div>
+<template id="ch">
+    <div>
+        <slot name="a"></slot>
+        <slot name="b"></slot>
+    </div>
+</template>
+<script src="node_modules/vue/dist/vue.js" ></script>
+<script>
+
+    let child={
+        template:'#ch',
+
+    }
+    var vm =new Vue({
+        el:'#app',
+        components:{
+            child
+        }
+    })
+</script>
+
+</body>
+</html>
